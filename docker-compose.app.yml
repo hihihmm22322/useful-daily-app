@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    image: localhost:5000/useful-daily-app-be:latest
+    container_name: useful-daily-app-be
+    ports:
+      - "8089:8089"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  frontend:
+    image: localhost:5000/useful-daily-app-fe:latest
+    container_name: useful-daily-app-fe
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
