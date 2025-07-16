@@ -15,24 +15,6 @@ pipeline {
             }
         }
         
-        stage('Wait for Docker') {
-            steps {
-                script {
-                    sh '''
-                        echo "Waiting for Docker daemon to be ready..."
-                        for i in {1..30}; do
-                            if docker version >/dev/null 2>&1; then
-                                echo "Docker is ready!"
-                                break
-                            fi
-                            echo "Waiting... ($i/30)"
-                            sleep 2
-                        done
-                    '''
-                }
-            }
-        }
-        
         stage('Build Backend') {
             steps {
                 dir('useful-daily-app-bp') {

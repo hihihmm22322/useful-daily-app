@@ -2,9 +2,7 @@ version: '3.8'
 
 services:
   jenkins:
-    build: 
-      context: .
-      dockerfile: Dockerfile.jenkins
+    image: jenkins/jenkins:lts-jdk17
     container_name: jenkins
     privileged: true
     user: root
@@ -13,15 +11,17 @@ services:
       - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
-      - docker-certs:/certs/client:ro
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+      - /usr/bin/docker:/usr/bin/docker:ro
     environment:
-      - DOCKER_HOST=tcp://docker-dind:2376
-      - DOCKER_TLS_VERIFY=1
-      - DOCKER_CERT_PATH=/certs/client
+      - DOCKER_HOST=unix:///var/run/docker.sock
     networks:
       - jenkins-network
-    depends_on:
-      - docker-dind
+    entrypoint: >
+      bash -c "
+        chmod 666 /var/run/docker.sock &&
+        /usr/local/bin/jenkins.sh
+      "
 
   docker-dind:
     image: docker:dind
