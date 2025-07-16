@@ -15,15 +15,8 @@ services:
       - /usr/bin/docker:/usr/bin/docker
     environment:
       - DOCKER_HOST=unix:///var/run/docker.sock
-      - DOCKER_GID=999
     networks:
       - jenkins-network
-    command: >
-      bash -c "
-        groupadd -g 999 docker || true &&
-        usermod -aG docker jenkins &&
-        /usr/local/bin/jenkins.sh
-      "
 
   docker-dind:
     image: docker:dind

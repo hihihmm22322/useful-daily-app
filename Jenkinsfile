@@ -19,10 +19,9 @@ pipeline {
             steps {
                 dir('useful-daily-app-bp') {
                     script {
-                        sh "docker build -t ${BE_IMAGE}:${BUILD_NUMBER} ."
-                        sh "docker tag ${BE_IMAGE}:${BUILD_NUMBER} ${BE_IMAGE}:latest"
-                        sh "docker push ${BE_IMAGE}:${BUILD_NUMBER}"
-                        sh "docker push ${BE_IMAGE}:latest"
+                        def beImage = docker.build("${BE_IMAGE}:${BUILD_NUMBER}")
+                        beImage.push()
+                        beImage.push('latest')
                     }
                 }
             }
@@ -32,10 +31,9 @@ pipeline {
             steps {
                 dir('useful-daily-app-fe') {
                     script {
-                        sh "docker build -t ${FE_IMAGE}:${BUILD_NUMBER} ."
-                        sh "docker tag ${FE_IMAGE}:${BUILD_NUMBER} ${FE_IMAGE}:latest"
-                        sh "docker push ${FE_IMAGE}:${BUILD_NUMBER}"
-                        sh "docker push ${FE_IMAGE}:latest"
+                        def feImage = docker.build("${FE_IMAGE}:${BUILD_NUMBER}")
+                        feImage.push()
+                        feImage.push('latest')
                     }
                 }
             }
