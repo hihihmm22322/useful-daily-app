@@ -13,8 +13,7 @@ services:
       - jenkins_home:/var/jenkins_home
     environment:
       - DOCKER_HOST=tcp://docker-dind:2376
-      - DOCKER_TLS_VERIFY=1
-      - DOCKER_CERT_PATH=/certs/client
+      - DOCKER_TLS_VERIFY=0
     volumes:
       - jenkins_home:/var/jenkins_home
       - docker-certs:/certs/client:ro
