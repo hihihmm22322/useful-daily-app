@@ -43,8 +43,8 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        docker-compose -f docker-compose.app.yml down
-                        docker-compose -f docker-compose.app.yml up -d
+                        docker compose -f docker-compose.app.yml down
+                        docker compose -f docker-compose.app.yml up -d
                     '''
                 }
             }
