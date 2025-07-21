@@ -43,8 +43,11 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        docker compose -f docker-compose.app.yml -p useful-daily-app down --remove-orphans
-                        docker rm -f useful-daily-app-be useful-daily-app-fe || true
+                        # 只停止應用容器，不使用 down 命令
+                        docker stop useful-daily-app-be useful-daily-app-fe || true
+                        docker rm useful-daily-app-be useful-daily-app-fe || true
+                        
+                        # 重新啟動應用
                         docker compose -f docker-compose.app.yml -p useful-daily-app up -d
                     '''
                 }
