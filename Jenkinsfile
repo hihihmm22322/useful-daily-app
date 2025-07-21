@@ -43,9 +43,9 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        docker compose -f docker-compose.app.yml down --remove-orphans
+                        docker compose -f docker-compose.app.yml -p useful-daily-app down --remove-orphans
                         docker rm -f useful-daily-app-be useful-daily-app-fe || true
-                        docker compose -f docker-compose.app.yml up -d
+                        docker compose -f docker-compose.app.yml -p useful-daily-app up -d
                     '''
                 }
             }
