@@ -65,7 +65,7 @@ const handleCheckIn = async () => {
     loading.value = true
     const response = await checkInService.checkInToday()
     
-    if (response.data === 'success') {
+    if (response) {
       isCheckedIn.value = true
       showMessage('打卡成功！', 'success')
     }

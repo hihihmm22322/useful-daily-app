@@ -20,6 +20,6 @@ export const checkInService = {
   // 今日打卡
   async checkInToday() {
     const response = await apiClient.post('/checkin/today')
-    return response.data.success ? response.data.data : false
+    return response.data.success ? 'success' : false
   }
 }
