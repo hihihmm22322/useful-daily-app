@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:h2:mem:coindeskdb
+    url: jdbc:h2:file:./data/coindeskdb
     driver-class-name: org.h2.Driver
     username: sa
     password: 
@@ -14,5 +14,7 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
   h2:
     console:
-      enabled: true
+      enabled: true  # 生產環境應設為 false
       path: /h2-console
+      settings:
+        web-allow-others: true

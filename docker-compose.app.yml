@@ -8,6 +8,8 @@ services:
       - "8089:8089"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
+    volumes:
+      - backend_data:/app/data
     networks:
       - app-network
     restart: unless-stopped
